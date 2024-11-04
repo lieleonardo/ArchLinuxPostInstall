@@ -56,6 +56,16 @@ sudo pacman -S plasma kde-applications
 sudo pacman -S lightdm lightdm-slick-greeter lightdm-gtk-greeter-settings
 sudo systemctl enable lightdm
 
+# Install Discord
+yay -S discord
+
+# Fix screen sharing issues with OBS and Discord
+echo "Fixing screen sharing issues..."
+sudo pacman -S xorg-server-xvfb
+echo 'export DISPLAY=:99' >> ~/.bashrc
+echo 'Xvfb :99 -screen 0 1920x1080x24 &' >> ~/.bashrc
+source ~/.bashrc
+
 # Install KDE themes and customization tools
 sudo pacman -S kvantum-qt5 latte-dock
 yay -S sweet-kde-git
