@@ -16,6 +16,9 @@ cd ..
 # Install AMD GPU drivers
 # sudo pacman -S xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon mesa lib32-mesa
 
+# Install VMware display drivers
+sudo pacman -S xf86-video-vmware mesa
+
 # Install Steam, Proton, and additional gaming tools
 sudo pacman -S steam lutris wine mangohud gamemode power-profiles-daemon
 
@@ -49,8 +52,8 @@ source ~/.bashrc
 # Install multimedia software (Spotify and VLC)
 sudo pacman -S spotify vlc
 
-# Install Visual Studio Code, Firefox
-sudo pacman -S code firefox
+# Install Visual Studio Code, Firefox, and Chromium
+sudo pacman -S code firefox chromium
 
 # Install text editors for terminal
 sudo pacman -S vim nano
@@ -67,6 +70,9 @@ sudo systemctl enable lightdm
 # Install themes and icons
 yay -S arc-gtk-theme papirus-icon-theme
 
+# Add custom background (replace with your image path)
+sudo cp /path/to/your/wallpaper.jpg /usr/share/backgrounds/
+
 # Configure LightDM and Slick Greeter
 sudo bash -c 'cat > /etc/lightdm/lightdm.conf <<EOF
 [Seat:*]
@@ -76,12 +82,15 @@ EOF'
 
 sudo bash -c 'cat > /etc/lightdm/slick-greeter.conf <<EOF
 [Greeter]
-background=/usr/share/backgrounds/archlinux/arch-wallpaper.jpg
+background=/usr/share/backgrounds/wallpaper.jpg
 theme-name=Arc-Dark
 icon-theme-name=Papirus-Dark
 show-clock=true
 clock-format=%H:%M:%S
 EOF'
+
+# Fix home directory ownership
+sudo chown -R $USER:$USER /home/$USER
 
 # Install Discord
 yay -S discord
@@ -98,9 +107,12 @@ yay -S sweet-kde-git
 # Install sound packages
 sudo pacman -S alsa-utils pulseaudio pulseaudio-alsa pavucontrol
 
-# Enable sound services
-sudo systemctl enable --now alsa-state.service
-sudo systemctl enable --now pulseaudio.service
+# Enable ALSA service
+sudo systemctl enable --now alsa-restore
+
+# Enable PulseAudio services
+systemctl --user enable pulseaudio
+systemctl --user start pulseaudio
 
 # Clean up Pacman cache
 sudo pacman -Sc --noconfirm
