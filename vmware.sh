@@ -61,36 +61,33 @@ sudo pacman -S vim nano
 # Install KDE Plasma
 sudo pacman -S plasma kde-applications
 
-# Install LightDM and Slick Greeter
-sudo pacman -S lightdm lightdm-slick-greeter lightdm-gtk-greeter-settings
+# Install and configure SDDM
+sudo pacman -S sddm
+sudo systemctl enable sddm
 
-# Enable LightDM
-sudo systemctl enable lightdm
+# Install SDDM themes
+yay -S sddm-nordic-theme
+
+# Configure SDDM with Nordic theme
+sudo bash -c 'cat > /etc/sddm.conf <<EOF
+[Theme]
+Current=Nordic
+
+[General]
+InputMethod=
+Numlock=on
+
+[Users]
+MaximumUid=60000
+MinimumUid=1000
+EOF'
 
 # Install themes and icons
 yay -S arc-gtk-theme papirus-icon-theme
 
-# Add custom background (replace with your image path)
-sudo cp /path/to/your/wallpaper.jpg /usr/share/backgrounds/
-
-# Configure LightDM and Slick Greeter
-sudo bash -c 'cat > /etc/lightdm/lightdm.conf <<EOF
-[Seat:*]
-greeter-session=lightdm-slick-greeter
-user-session=plasma
-EOF'
-
-sudo bash -c 'cat > /etc/lightdm/slick-greeter.conf <<EOF
-[Greeter]
-background=/usr/share/backgrounds/wallpaper.jpg
-theme-name=Arc-Dark
-icon-theme-name=Papirus-Dark
-show-clock=true
-clock-format=%H:%M:%S
-EOF'
-
-# Fix home directory ownership
+# Fix home directory ownership and permissions
 sudo chown -R $USER:$USER /home/$USER
+chmod -R 755 /home/$USER
 
 # Install Discord
 yay -S discord
@@ -101,8 +98,7 @@ sudo pacman -S xorg-server-xvfb
 echo 'Xvfb :99 -screen 0 1920x1080x24 &' >> ~/.xprofile
 
 # Install KDE themes and customization tools
-sudo pacman -S kvantum-qt5 latte-dock
-yay -S sweet-kde-git
+sudo pacman -S kvantum-qt5
 
 # Install sound packages
 sudo pacman -S alsa-utils pulseaudio pulseaudio-alsa pavucontrol
