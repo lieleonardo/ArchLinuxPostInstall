@@ -7,6 +7,12 @@ sudo pacman -Syu
 # Install base development tools and utilities
 sudo pacman -S base-devel git
 
+# Install Yay
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+cd ..
+
 # Install AMD GPU drivers
 sudo pacman -S xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon mesa lib32-mesa
 
@@ -54,7 +60,28 @@ sudo pacman -S plasma kde-applications
 
 # Install LightDM and Slick Greeter
 sudo pacman -S lightdm lightdm-slick-greeter lightdm-gtk-greeter-settings
+
+# Enable LightDM
 sudo systemctl enable lightdm
+
+# Install themes and icons
+yay -S arc-gtk-theme papirus-icon-theme
+
+# Configure LightDM and Slick Greeter
+sudo bash -c 'cat > /etc/lightdm/lightdm.conf <<EOF
+[Seat:*]
+greeter-session=lightdm-slick-greeter
+user-session=plasma
+EOF'
+
+sudo bash -c 'cat > /etc/lightdm/slick-greeter.conf <<EOF
+[Greeter]
+background=/usr/share/backgrounds/archlinux/arch-wallpaper.jpg
+theme-name=Arc-Dark
+icon-theme-name=Papirus-Dark
+show-clock=true
+clock-format=%H:%M:%S
+EOF'
 
 # Install Discord
 yay -S discord
@@ -62,9 +89,7 @@ yay -S discord
 # Fix screen sharing issues with OBS and Discord
 echo "Fixing screen sharing issues..."
 sudo pacman -S xorg-server-xvfb
-echo 'export DISPLAY=:99' >> ~/.bashrc
-echo 'Xvfb :99 -screen 0 1920x1080x24 &' >> ~/.bashrc
-source ~/.bashrc
+echo 'Xvfb :99 -screen 0 1920x1080x24 &' >> ~/.xprofile
 
 # Install KDE themes and customization tools
 sudo pacman -S kvantum-qt5 latte-dock
