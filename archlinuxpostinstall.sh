@@ -29,10 +29,7 @@ sudo pacman -S libreoffice-fresh
 
 # Install development tools for coding (including React Native)
 sudo pacman -S git nodejs npm
-yay -S react-native-cli
-
-# Install Android Studio and setup environment for React Native
-yay -S android-studio
+yay -S react-native-cli android-studio
 echo 'export ANDROID_HOME=$HOME/Android/Sdk' >> ~/.bashrc
 echo 'export PATH=$PATH:$ANDROID_HOME/emulator' >> ~/.bashrc
 echo 'export PATH=$PATH:$ANDROID_HOME/tools' >> ~/.bashrc
@@ -49,8 +46,15 @@ yay -S visual-studio-code-bin firefox chromium
 # Install text editors for terminal
 sudo pacman -S vim nano
 
+# Install Hyprland
+yay -S hyprland-git
+git clone https://github.com/JaKooLit/Arch-Hyprland.git
+cd Arch-Hyprland
+chmod +x install.sh
+./install.sh
+
 # Install and configure desktop environment (optional)
-sudo pacman -S plasma kde-applications sddm
+sudo pacman -S sddm
 sudo systemctl enable sddm
 
 # Clean up Yay cache
