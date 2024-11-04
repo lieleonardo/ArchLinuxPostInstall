@@ -17,10 +17,10 @@ cd ..
 sudo pacman -S xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon mesa lib32-mesa
 
 # Install VMware display drivers
-sudo pacman -S xf86-video-vmware mesa
+# sudo pacman -S xf86-video-vmware mesa
 
 # Install Steam, Proton, and additional gaming tools
-# sudo pacman -S steam lutris wine mangohud gamemode power-profiles-daemon
+sudo pacman -S steam lutris wine mangohud gamemode power-profiles-daemon
 
 # Enable Multilib repository if not already enabled
 sudo sed -i '/
