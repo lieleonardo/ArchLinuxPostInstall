@@ -70,6 +70,13 @@ source ~/.bashrc
 sudo pacman -S kvantum-qt5 latte-dock
 yay -S sweet-kde-git
 
+# Install sound packages
+sudo pacman -S alsa-utils pulseaudio pulseaudio-alsa pavucontrol
+
+# Enable sound services
+sudo systemctl enable --now alsa-state.service
+sudo systemctl enable --now pulseaudio.service
+
 # Clean up Pacman cache
 sudo pacman -Sc --noconfirm
 
