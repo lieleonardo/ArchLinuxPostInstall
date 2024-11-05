@@ -51,7 +51,8 @@ sudo pacman -S git unzip
 
 # Clone and install the Chili theme for SDDM
 git clone https://github.com/MarianArlt/kde-plasma-chili.git ~/Downloads/kde-plasma-chili
-sudo cp -R ~/Downloads/kde-plasma-chili/Chili /usr/share/sddm/themes/
+sudo mkdir -p /usr/share/sddm/themes/Chili
+sudo cp -R ~/Downloads/kde-plasma-chili/* /usr/share/sddm/themes/Chili
 
 # Create SDDM configuration directory if it doesn't exist
 sudo mkdir -p /etc/sddm.conf.d/
