@@ -49,8 +49,8 @@ sudo pacman -S plasma-meta kde-applications
 sudo pacman -S sddm
 sudo systemctl enable sddm
 
-# Install wget for downloading themes
-sudo pacman -S wget
+# Install wget and unzip for downloading and extracting themes
+sudo pacman -S wget unzip
 
 # Download and install Nordic theme for SDDM
 wget https://github.com/nautilor/nord-sddm/archive/refs/heads/master.zip
