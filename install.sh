@@ -34,7 +34,22 @@ case $choice in
         ;;
 esac
 
-echo "Continuing setup for gaming, streaming, coding, office work, and multimedia..."
+echo "Installing applications for gaming..."
+
+# Install gaming-related applications
+sudo pacman -S steam lutris wine mangohud gamemode
+
+echo "Installing applications for entertainment..."
+
+# Install entertainment-related applications
+sudo pacman -S spotify vlc
+
+echo "Installing applications for development..."
+
+# Install development-related applications
+sudo pacman -S code vim nano nodejs npm
+
+echo "Installing additional utilities and tools..."
 
 # Install base development tools and utilities
 sudo pacman -S base-devel git
@@ -45,11 +60,10 @@ cd yay
 makepkg -si
 cd ..
 
-# Install essential applications for your needs
-sudo pacman -S steam lutris wine mangohud gamemode power-profiles-daemon 
-sudo pacman -S obs-studio libreoffice-fresh nodejs 
-sudo pacman -S npm code firefox chromium vim 
-sudo pacman -S nano kvantum-qt5 spotify vlc
+echo "Installing office and multimedia applications..."
+
+# Install office and multimedia applications
+sudo pacman -S libreoffice-fresh obs-studio power-profiles-daemon
 
 # Install Discord
 yay -S discord
@@ -67,6 +81,8 @@ else
     echo "Skipping audio package installation."
 fi
 
+echo "Installing Android Studio and setting up environment for React Native..."
+
 # Install Android Studio and setup environment for React Native
 yay -S android-studio
 echo 'export ANDROID_HOME=$HOME/Android/Sdk' >> ~/.bashrc
@@ -76,17 +92,24 @@ echo 'export PATH=$PATH:$ANDROID_HOME/tools/bin' >> ~/.bashrc
 echo 'export PATH=$PATH:$ANDROID_HOME/platform-tools' >> ~/.bashrc
 source ~/.bashrc
 
+echo "Installing themes and icons..."
+
 # Install themes and icons
 yay -S arc-gtk-theme papirus-icon-theme
+
+echo "Fixing home directory ownership and permissions..."
 
 # Fix home directory ownership and permissions
 sudo chown -R $USER:$USER /home/$USER
 chmod -R 755 /home/$USER
 
-# Fix screen sharing issues with OBS and Discord
-echo "Fixing screen sharing issues..."
+echo "Fixing screen sharing issues with OBS and Discord..."
+
+# Fix screen sharing issues
 sudo pacman -S xorg-server-xvfb
 echo 'Xvfb :99 -screen 0 1920x1080x24 &' >> ~/.xprofile
+
+echo "Cleaning up Pacman cache..."
 
 # Clean up Pacman cache
 sudo pacman -Sc --noconfirm
