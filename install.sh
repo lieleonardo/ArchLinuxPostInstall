@@ -34,16 +34,13 @@ case $choice in
         ;;
 esac
 
-echo "Freeing up disk space before installing KDE Plasma..."
+echo "Freeing up disk space before installing SDDM theme..."
 # Remove unnecessary packages
 sudo pacman -Rns $(pacman -Qtdq)
 # Clean up the package cache
 sudo pacman -Sc --noconfirm
 # Remove any large, unnecessary files
 sudo rm -rf /var/cache/pacman/pkg/*
-
-# Install full KDE Plasma suite
-sudo pacman -S plasma-meta kde-applications
 
 # Install and configure SDDM
 sudo pacman -S sddm
@@ -52,18 +49,18 @@ sudo systemctl enable sddm
 # Install wget and unzip for downloading and extracting themes
 sudo pacman -S wget unzip
 
-# Create directory for Nordic theme
+# Create directory for Nord theme
 mkdir -p ~/Downloads/nord-sddm
 
-# Download and install Nordic theme for SDDM
+# Download and install Nord theme for SDDM
 wget -O ~/Downloads/nord-sddm/master.zip https://github.com/nautilor/nord-sddm/archive/refs/heads/master.zip
 unzip ~/Downloads/nord-sddm/master.zip -d ~/Downloads/nord-sddm
-sudo cp -R ~/Downloads/nord-sddm/nord-sddm-master /usr/share/sddm/themes/Nord
+sudo cp -R ~/Downloads/nord-sddm/nord-sddm-master/* /usr/share/sddm/themes/
 
 # Create SDDM configuration directory if it doesn't exist
 sudo mkdir -p /etc/sddm.conf.d/
 
-# Configure SDDM to use the Nordic theme
+# Configure SDDM to use the Nord theme
 sudo bash -c 'cat > /etc/sddm.conf.d/custom.conf <<EOF
 [Theme]
 Current=Nord
