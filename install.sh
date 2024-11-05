@@ -52,9 +52,12 @@ sudo systemctl enable sddm
 # Install wget and unzip for downloading and extracting themes
 sudo pacman -S wget unzip
 
+# Create directory for Nordic theme
+mkdir -p ~/Downloads/nord-sddm
+
 # Download and install Nordic theme for SDDM
-wget https://github.com/nautilor/nord-sddm/archive/refs/heads/master.zip
-unzip master.zip -d ~/Downloads/nord-sddm
+wget -O ~/Downloads/nord-sddm/master.zip https://github.com/nautilor/nord-sddm/archive/refs/heads/master.zip
+unzip ~/Downloads/nord-sddm/master.zip -d ~/Downloads/nord-sddm
 sudo cp -R ~/Downloads/nord-sddm/nord-sddm-master /usr/share/sddm/themes/Nord
 
 # Create SDDM configuration directory if it doesn't exist
