@@ -46,24 +46,20 @@ sudo rm -rf /var/cache/pacman/pkg/*
 sudo pacman -S sddm
 sudo systemctl enable sddm
 
-# Install wget and unzip for downloading and extracting themes
-sudo pacman -S wget unzip
+# Install git and unzip for downloading and extracting themes
+sudo pacman -S git unzip
 
-# Create directory for Nord theme
-mkdir -p ~/Downloads/nord-sddm
-
-# Download and install Nord theme for SDDM
-wget -O ~/Downloads/nord-sddm/master.zip https://github.com/nautilor/nord-sddm/archive/refs/heads/master.zip
-unzip ~/Downloads/nord-sddm/master.zip -d ~/Downloads/nord-sddm
-sudo cp -R ~/Downloads/nord-sddm/nord-sddm-master/* /usr/share/sddm/themes/
+# Clone and install the Chili theme for SDDM
+git clone https://github.com/MarianArlt/kde-plasma-chili.git ~/Downloads/kde-plasma-chili
+sudo cp -R ~/Downloads/kde-plasma-chili/Chili /usr/share/sddm/themes/
 
 # Create SDDM configuration directory if it doesn't exist
 sudo mkdir -p /etc/sddm.conf.d/
 
-# Configure SDDM to use the Nord theme
+# Configure SDDM to use the Chili theme
 sudo bash -c 'cat > /etc/sddm.conf.d/custom.conf <<EOF
 [Theme]
-Current=Nord
+Current=Chili
 EOF'
 
 echo "Continuing setup for gaming, streaming, coding, office work, and multimedia..."
