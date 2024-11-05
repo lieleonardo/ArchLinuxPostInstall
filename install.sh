@@ -78,10 +78,23 @@ makepkg -si
 cd ..
 
 # Install essential applications for your needs
-sudo pacman -S steam lutris wine mangohud gamemode power-profiles-daemon obs-studio libreoffice-fresh nodejs npm code firefox chromium vim nano alsa-utils pulseaudio pulseaudio-alsa pavucontrol kvantum-qt5 spotify vlc
+sudo pacman -S steam lutris wine mangohud gamemode power-profiles-daemon obs-studio libreoffice-fresh nodejs npm code firefox chromium vim nano kvantum-qt5 spotify vlc
 
 # Install Discord
 yay -S discord
+
+# Prompt to install audio packages
+read -p "Do you want to install audio packages? (y/n): " install_audio
+
+if [[ $install_audio == "y" || $install_audio == "Y" ]]; then
+    sudo pacman -S alsa-utils pulseaudio pulseaudio-alsa pavucontrol
+    sudo systemctl enable --now alsa-restore
+    systemctl --user enable pulseaudio
+    systemctl --user start pulseaudio
+    echo "Audio packages installed and services enabled."
+else
+    echo "Skipping audio package installation."
+fi
 
 # Install Android Studio and setup environment for React Native
 yay -S android-studio
@@ -103,13 +116,6 @@ chmod -R 755 /home/$USER
 echo "Fixing screen sharing issues..."
 sudo pacman -S xorg-server-xvfb
 echo 'Xvfb :99 -screen 0 1920x1080x24 &' >> ~/.xprofile
-
-# Enable ALSA service
-sudo systemctl enable --now alsa-restore
-
-# Enable PulseAudio services
-systemctl --user enable pulseaudio
-systemctl --user start pulseaudio
 
 # Clean up Pacman cache
 sudo pacman -Sc --noconfirm
