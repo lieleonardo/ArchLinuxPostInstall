@@ -46,7 +46,10 @@ makepkg -si
 cd ..
 
 # Install essential applications for your needs
-sudo pacman -S steam lutris wine mangohud gamemode power-profiles-daemon obs-studio libreoffice-fresh nodejs npm code firefox chromium vim nano kvantum-qt5 spotify vlc
+sudo pacman -S steam lutris wine mangohud gamemode power-profiles-daemon 
+sudo pacman -S obs-studio libreoffice-fresh nodejs 
+sudo pacman -S npm code firefox chromium vim 
+sudo pacman -S nano kvantum-qt5 spotify vlc
 
 # Install Discord
 yay -S discord
