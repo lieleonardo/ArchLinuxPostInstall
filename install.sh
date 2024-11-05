@@ -34,35 +34,6 @@ case $choice in
         ;;
 esac
 
-echo "Freeing up disk space before installing SDDM theme..."
-# Remove unnecessary packages
-sudo pacman -Rns $(pacman -Qtdq)
-# Clean up the package cache
-sudo pacman -Sc --noconfirm
-# Remove any large, unnecessary files
-sudo rm -rf /var/cache/pacman/pkg/*
-
-# Install and configure SDDM
-sudo pacman -S sddm
-sudo systemctl enable sddm
-
-# Install git and unzip for downloading and extracting themes
-sudo pacman -S git unzip
-
-# Clone and install the Chili theme for SDDM
-git clone https://github.com/MarianArlt/kde-plasma-chili.git ~/Downloads/kde-plasma-chili
-sudo mkdir -p /usr/share/sddm/themes/Chili
-sudo cp -R ~/Downloads/kde-plasma-chili/* /usr/share/sddm/themes/Chili
-
-# Create SDDM configuration directory if it doesn't exist
-sudo mkdir -p /etc/sddm.conf.d/
-
-# Configure SDDM to use the Chili theme
-sudo bash -c 'cat > /etc/sddm.conf.d/custom.conf <<EOF
-[Theme]
-Current=Chili
-EOF'
-
 echo "Continuing setup for gaming, streaming, coding, office work, and multimedia..."
 
 # Install base development tools and utilities
